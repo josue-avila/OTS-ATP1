@@ -3,7 +3,6 @@ name: str
 description: str
 price: float
 
-
 list_names: list = []
 list_description: list = []
 list_price: list = []
