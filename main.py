@@ -1,15 +1,16 @@
+import os 
 
 class Product:
     name: str
     description: str
     price: float
 
-    list_names: list = []
-    list_description: list = []
-    list_price: list = []
+    list_products: list = []
+    list_product: list = ['','','']
 
     def menu(self):
         print("MENU:")
+        print('')
         print('1 - Adicionar novo produto')
         print('2 - Ver produtos cadastrados')
         print('3 - Editar produto')
@@ -20,38 +21,40 @@ class Product:
         return self.option
 
     def add(self):
-        name = input("Digite o nome do novo produto: ")
+        name= input("Digite o nome do novo produto: ")
 
-        if name in self.list_names:
+        if any(name in self.list_product for self.list_product in self.list_products):
             print('')
             print('O PRODUTO JÁ EXISTE!')
             print('')
             pass
             
         else:
-            self.list_names.append(name)
             description = input("Inclua uma breve descrição: ")
-            self.list_description.append(description)
             price = input("Adicione o preço: ")
-            self.list_price.append(price)
+       
+            self.list_product = [name,description,price]
+            self.list_products.append(self.list_product)
+
             print('')
             print('PRODUTO ADICIONADO!')
             print('')
             pass
 
 
-    def get_products(self): 
-        print('LISTA DE PRODUTOS: ', self.list_names) 
+    def get_products(self):
+        print('')
+        print('LISTA DE PRODUTOS: ', self.list_products) 
+        print('')
         pass 
 
     def delete(self):
         print('')
         element = input('Digite o nome do produto que deseja excluir: ')
-        if element in self.list_names:
-            index = self.list_names.index(element)
-            self.list_names.pop(index)
-            self.list_description.pop(index)
-            self.list_price.pop(index)
+        if any(element in self.list_product for self.list_product in self.list_products):
+            index = [i for i, j in enumerate(self.list_products) if element in j][0] 
+            self.list_products.pop(index)
+
             print('')
             print('ITEM EXCLUIDO!')
             print('')
@@ -64,45 +67,52 @@ class Product:
     def edit_products(self):
         print('')
         element = input('Digite o nome do produto que deseja editar: ')
-        if element in self.list_names:
-            index = self.list_names.index(element)
-        
+        if any(element in self.list_product for self.list_product in self.list_products):
+            index = [i for i, j in enumerate(self.list_products) if element in j][0]
+            index1 = self.list_products[index].index(element)
+            print(index)
             name = input('Digite o novo nome do produto: ')
             if name == '':
                 pass
             else:
-                self.list_names[index] = name
+                self.list_products[index][index1] = name
                 pass
 
             description = input('Digite a nova descrição do produto: ')
             if description == '':
                 pass
             else:
-                self.list_description[index] = description
+                self.list_products[index][index1+1] = description
                 pass
 
             price = input('Digite o novo preço do produto: ')
             if price == '':
                 pass
             else:
-                self.list_price[index] = price
+                self.list_products[index][index1+2] = price
                 pass
         else:
             print('')
             print('PRODUTO NÃO CADASTRADO!')
             print('')
 
+os.system('clear')
 product = Product()
 
 opcao = product.menu()
+
 while opcao != '5':
     if opcao == '1':
+        os.system('clear')
         product.add()
     elif opcao == '2':
+        os.system('clear')
         product.get_products()
     elif opcao == '3':
+        os.system('clear')
         product.edit_products()
     elif opcao == '4':
+        os.system('clear')
         product.delete()
     
 
