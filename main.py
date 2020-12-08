@@ -1,5 +1,4 @@
 import os 
-import locale
 
 class Product:
     name: str
@@ -9,9 +8,9 @@ class Product:
     list_products: list = []
     list_product: list = ['','','']
 
-    def menu(self) -> int:
+    def product_menu(self) -> int:
         print('')
-        print("MENU:")
+        print("MENU DE PRODUTOS:")
         print('')
         print('1 - Adicionar novo produto')
         print('2 - Ver produtos cadastrados')
@@ -167,25 +166,71 @@ class Product:
             print('PRODUTO NÃO CADASTRADO!')
             print('')
 
+class Categories:
+
+    categories: list = [['eletronicos', 'celulares', 'caixas de son', 'games'], 
+    ['livros', 'scifi', 'drama', 'biografias'], ['música','cds','discos'], 
+    ['móveis e decoração','mesas','cadeidas','sofas'], ['papelaria', 'cadernos','canetas'], 
+    ['petshop','coleiras', 'ração']]
+    
+
+    def categories_menu(self) -> int:
+        print('')
+        print("CATEGORIAS CADASTRADAS:")
+        print('')
+        for i in range(len(self.categories)):
+            print(self.categories[i])
+        print('')
+        print('1 - Adicionar nova categoria: ')
+        print('3 - Sair')
+        print('')
+        self.option = input('Digite a opção escolhida (use os números): -> ')
+        return self.option
+
+
+
+
+def menu():
+    print('')
+    print("MENU:")
+    print('')
+    print('1 - PRODUTOS')
+    print('2 - CATEGORIAS')
+
+    print('3 - Sair')
+    print('')
+    option = input('Digite a opção escolhida (use os números): -> ')
+    return option
+
 os.system('clear')
 product = Product()
+categories = Categories()
 
-opcao = product.menu()
+opcao = menu()
 
-while opcao != '5':
+while opcao != '3':
     if opcao == '1':
         os.system('clear')
-        product.add()
-    elif opcao == '2':
-        os.system('clear')
-        product.get_products()
-    elif opcao == '3':
-        os.system('clear')
-        product.edit_products()
-    elif opcao == '4':
-        os.system('clear')
-        product.delete()
+        opcao_products = product.product_menu()
+        while opcao_products != '5':
+            if opcao_products == '1':
+                os.system('clear')
+                product.add()
+            elif opcao_products == '2':
+                os.system('clear')
+                product.get_products()
+            elif opcao_products == '3':
+                os.system('clear')
+                product.edit_products()
+            elif opcao_products == '4':
+                os.system('clear')
+                product.delete()
     
-
-    opcao = product.menu()
-    
+            opcao_products = product.product_menu()
+    elif opcao == '2': 
+        os.system('clear')
+        opcao_categories = categories.categories_menu()   
+        #if opcao_categories == '1':
+            #categories.
+          
+    opcao = menu()
