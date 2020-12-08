@@ -7,6 +7,7 @@ class Product:
 
     list_products: list = []
     list_product: list = ['','','']
+    categories: list = []
 
     def product_menu(self) -> int:
         print('')
@@ -16,21 +17,37 @@ class Product:
         print('2 - Ver produtos cadastrados')
         print('3 - Editar produto')
         print('4 - Deletar produto')
-        print('5 - Sair')
+        print('0 - Sair')
         print('')
         self.option = input('Digite a opção escolhida (use os números): -> ')
         return self.option
 
     def add(self):
         name= input("Digite o nome do novo produto: ")
-
+        c = Categories()
         if any(name in self.list_product for self.list_product in self.list_products):
             print('')
             print('O PRODUTO JÁ EXISTE!')
             print('')
             pass
-            
         else:
+            categorie =[]
+            while categorie != '0':
+                print('')
+                print('Selecione as categias à que o novo produto pertence:')
+                print('')
+                for i in range(len(c.categories)):
+                    print(c.categories[i][0])
+                categorie = input('Escreva uma de cada vez e quando estiver pronto digite 0 (zero) -> ')
+                if any(categorie in list for list in c.categories):
+                    self.categories.append(categorie)
+                elif categorie == '0':
+                    pass
+                else:
+                    print('')
+                    print('CATEGORIA NÃO CADASTRADA')
+                    print('')
+                    pass
             description = input("Inclua uma breve descrição: ")
             while len(description) < 20:
                 print('A decrição deve ter pelo menos 20 caracteres!')
@@ -39,8 +56,7 @@ class Product:
                 price = float(input("Adicione o preço (em R$): "))
                 while price <=0:
                     price = float(input("O valor precisa ser maior que zero. Digite o valor: "))
-                
-                    
+                       
             except ValueError as err:
                 print("O valor adicionadno é inválido, é preciso usar números")
 
@@ -55,7 +71,7 @@ class Product:
                     width = float(input("Largura: "))
 
                     dimensions = [length, height ,width]
-                    self.list_product = [name,description,price, weigth, dimensions]
+                    self.list_product = [name,description,price, weigth, dimensions, self.categories]
                     self.list_products.append(self.list_product)
 
                     print('PRODUTO ADICIONADO!')
@@ -83,6 +99,12 @@ class Product:
                     print('    Peso: ' + str(self.list_products[i][j])+"Kg")
                 else:
                     print('    Dimensões: ' + str(self.list_products[i][j][0])+'cm x '+str(self.list_products[i][j][1]) +'cm x '+str(self.list_products[i][j][2])+'cm' ) 
+
+        print('')
+        print('    Categorias: ')
+        for i in range(len(self.categories)):
+            print('    '+self.categories[i])
+        
         print('')
         pass 
 
@@ -179,15 +201,75 @@ class Categories:
         print("CATEGORIAS CADASTRADAS:")
         print('')
         for i in range(len(self.categories)):
-            print(self.categories[i])
+            print(self.categories[i][0])
+            print('')
+
         print('')
-        print('1 - Adicionar nova categoria: ')
-        print('3 - Sair')
+        print('1 - Adicionar nova categoria')
+        print('2 - Editar categoria')
+        print('0 - Sair')
         print('')
         self.option = input('Digite a opção escolhida (use os números): -> ')
         return self.option
 
+    def add(self):
+        name = input("Digite o nome da noVa categoria:  ")
 
+        if any(name in list for list in self.categories):
+            print('')
+            print('A CATEGORIA JÁ EXISTE!')
+            print('')
+            pass   
+        else:
+            self.categories.append([name])
+            print('')
+            print('CATEGORIA ADICIONADA!')
+            print('')
+            pass
+
+    def edit(self):
+        element = input("Digite o nome da categoria que deseja editar:  ")
+
+        if any(element in list for list in self.categories):
+            index = [i for i, j in enumerate(self.categories) if element in j][0]
+            index1 = self.categories[index].index(element)
+            name = input('Digite o novo nome da categoria: ')
+            if name == '':
+                pass
+            else:
+                if any(name in list for list in self.categories):
+                    print('')
+                    print('CATEGORIA JÁ EXISTE!')
+                    print('')
+                    pass
+                else:
+                    self.categories[index][index1] = name
+                    print('')
+                    print('CATEGORIA MODIFICADA COM SUCESSO!')
+                    print('')
+                    pass
+            pass   
+        else:
+            self.categories.append([name])
+            print('')
+            print('CATEGORIA NÃO CADASTRADA')
+            print('')
+            pass
+
+    def delete(self):
+        print('')
+        element = input('Digite o nome da categoria que deseja excluir: ')
+        if any(element in list for list in self.categories):
+            index = [i for i, j in enumerate(self.categories) if element in j][0] 
+            self.categories.pop(index)
+            print('')
+            print('CATEGORIA EXCLUIDA!')
+            print('')
+            pass
+        else:
+            print('')
+            print('CATEGORIA NÃO CADASTRADA!')
+            print('') 
 
 
 def menu():
@@ -196,8 +278,7 @@ def menu():
     print('')
     print('1 - PRODUTOS')
     print('2 - CATEGORIAS')
-
-    print('3 - Sair')
+    print('0 - Sair')
     print('')
     option = input('Digite a opção escolhida (use os números): -> ')
     return option
@@ -208,11 +289,11 @@ categories = Categories()
 
 opcao = menu()
 
-while opcao != '3':
+while opcao != '0':
     if opcao == '1':
         os.system('clear')
         opcao_products = product.product_menu()
-        while opcao_products != '5':
+        while opcao_products != '0':
             if opcao_products == '1':
                 os.system('clear')
                 product.add()
@@ -230,7 +311,14 @@ while opcao != '3':
     elif opcao == '2': 
         os.system('clear')
         opcao_categories = categories.categories_menu()   
-        #if opcao_categories == '1':
-            #categories.
-          
+        if opcao_categories == '1':
+            os.system('clear')
+            categories.add()
+        elif opcao_categories == '2':
+            os.system('clear')
+            categories.edit()
+        elif opcao_categories == '3':
+            os.system('clear')
+            categories.delete()
+
     opcao = menu()
