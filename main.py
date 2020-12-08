@@ -8,7 +8,7 @@ class Product:
     list_products: list = []
     list_product: list = ['','','']
 
-    def menu(self):
+    def menu(self) -> int:
         print("MENU:")
         print('')
         print('1 - Adicionar novo produto')
@@ -44,7 +44,16 @@ class Product:
 
     def get_products(self):
         print('')
-        print('LISTA DE PRODUTOS: ', self.list_products) 
+        print('LISTA DE PRODUTOS: ')
+        for i in range(len(self.list_products)):
+            print('')
+            for j in range(3):
+                if j == 0:
+                    print(str(i + 1) +' - nome: ', self.list_products[i][j])
+                elif j ==1:
+                    print('    descrição: ', self.list_products[i][j])
+                else: 
+                    print('    preço: ', self.list_products[i][j])
         print('')
         pass 
 
@@ -70,27 +79,32 @@ class Product:
         if any(element in self.list_product for self.list_product in self.list_products):
             index = [i for i, j in enumerate(self.list_products) if element in j][0]
             index1 = self.list_products[index].index(element)
-            print(index)
             name = input('Digite o novo nome do produto: ')
             if name == '':
                 pass
             else:
-                self.list_products[index][index1] = name
-                pass
+                if any(name in self.list_product for self.list_product in self.list_products):
+                    print('')
+                    print('PRODUTO JÁ EXISTE!')
+                    print('')
+                    pass
+                else:
+                    self.list_products[index][index1] = name
+                    pass
 
-            description = input('Digite a nova descrição do produto: ')
-            if description == '':
-                pass
-            else:
-                self.list_products[index][index1+1] = description
-                pass
+                    description = input('Digite a nova descrição do produto: ')
+                    if description == '':
+                        pass
+                    else:
+                        self.list_products[index][index1+1] = description
+                        pass
 
-            price = input('Digite o novo preço do produto: ')
-            if price == '':
-                pass
-            else:
-                self.list_products[index][index1+2] = price
-                pass
+                    price = input('Digite o novo preço do produto: ')
+                    if price == '':
+                        pass
+                    else:
+                        self.list_products[index][index1+2] = price
+                        pass
         else:
             print('')
             print('PRODUTO NÃO CADASTRADO!')
