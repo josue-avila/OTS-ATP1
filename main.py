@@ -1,4 +1,5 @@
 import os 
+import locale
 
 class Product:
     name: str
@@ -9,6 +10,7 @@ class Product:
     list_product: list = ['','','']
 
     def menu(self) -> int:
+        print('')
         print("MENU:")
         print('')
         print('1 - Adicionar novo produto')
@@ -31,15 +33,39 @@ class Product:
             
         else:
             description = input("Inclua uma breve descrição: ")
-            price = input("Adicione o preço: ")
-       
-            self.list_product = [name,description,price]
-            self.list_products.append(self.list_product)
+            while len(description) < 20:
+                print('A decrição deve ter pelo menos 20 caracteres!')
+                description = input("Inclua uma breve descrição: ")
+            try:
+                price = float(input("Adicione o preço (em R$): "))
+                while price <=0:
+                    price = float(input("O valor precisa ser maior que zero. Digite o valor: "))
+                
+                    
+            except ValueError as err:
+                print("O valor adicionadno é inválido, é preciso usar números")
 
-            print('')
-            print('PRODUTO ADICIONADO!')
-            print('')
-            pass
+            else:
+                try:
+                    weigth = float(input("Adicione o peso do produto (em Kg): "))                
+                    print("O valor adicionadno é inválido, é preciso usar números")
+                    print('')
+                    print("DIMENSÕES - Entre com as medidas do novo produto (em centímetros) ")
+                    length = float(input("Comprimento: "))              
+                    height = float(input("Altura: "))
+                    width = float(input("Largura: "))
+
+                    dimensions = [length, height ,width]
+                    self.list_product = [name,description,price, weigth, dimensions]
+                    self.list_products.append(self.list_product)
+
+                    print('PRODUTO ADICIONADO!')
+                    print('')
+                    pass
+                    
+                except ValueError as err:
+                    print('')
+                    print("O valor adicionadno é inválido.É preciso usar números nos campos: PREÇO, PESEO, E DIMENSÕES")
 
 
     def get_products(self):
@@ -47,13 +73,17 @@ class Product:
         print('LISTA DE PRODUTOS: ')
         for i in range(len(self.list_products)):
             print('')
-            for j in range(3):
+            for j in range(5):
                 if j == 0:
-                    print(str(i + 1) +' - nome: ', self.list_products[i][j])
-                elif j ==1:
-                    print('    descrição: ', self.list_products[i][j])
-                else: 
-                    print('    preço: ', self.list_products[i][j])
+                    print(str(i + 1) +' - Nome: ', self.list_products[i][j])
+                elif j == 1:
+                    print('    Descrição: ', self.list_products[i][j])
+                elif j == 2: 
+                    print('    Preço: R$ ' + str(self.list_products[i][j]))
+                elif j == 3: 
+                    print('    Peso: ' + str(self.list_products[i][j])+"Kg")
+                else:
+                    print('    Dimensões: ' + str(self.list_products[i][j][0])+'cm x '+str(self.list_products[i][j][1]) +'cm x '+str(self.list_products[i][j][2])+'cm' ) 
         print('')
         pass 
 
@@ -96,6 +126,9 @@ class Product:
                     if description == '':
                         pass
                     else:
+                        while len(description) < 20:
+                            print('A decrição deve ter pelo menos 20 caracteres!')
+                            description = input("Inclua uma breve descrição: ")
                         self.list_products[index][index1+1] = description
                         pass
 
@@ -104,6 +137,30 @@ class Product:
                         pass
                     else:
                         self.list_products[index][index1+2] = price
+                        pass
+                    weigth = input('Digite o novo peso do produto: ')
+                    if weigth == '':
+                        pass
+                    else:
+                        self.list_products[index][index1+3] = weigth
+                        pass
+                    length = input('Digite o novo comprimento do seu produto: ')
+                    if length == '':
+                        pass
+                    else:
+                        self.list_products[index][index1+4][0] = length
+                        pass
+                    heigth = input('Digite a nova altura do produto: ')
+                    if heigth== '':
+                        pass
+                    else:
+                        self.list_products[index][index1+4][1] = heigth
+                        pass
+                    weigth = input('Digite a nova altura do produto: ')
+                    if weigth == '':
+                        pass
+                    else:
+                        self.list_products[index][index1+4][2] = weigth
                         pass
         else:
             print('')
