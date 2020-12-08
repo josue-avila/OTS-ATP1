@@ -9,6 +9,7 @@ class Product:
     list_product: list = ['','','']
     categories: list = []
 
+    
     def product_menu(self) -> int:
         print('')
         print("MENU DE PRODUTOS:")
@@ -34,10 +35,15 @@ class Product:
             categorie =[]
             while categorie != '0':
                 print('')
-                print('Selecione as categias à que o novo produto pertence:')
+                print('Selecione as categorias à que o novo produto pertence:')
                 print('')
-                for i in range(len(c.categories)):
-                    print(c.categories[i][0])
+                for j in c.categories:
+                    for i in range(len(j)):
+                        if i == 0:
+                            print('')
+                            print(j[i])
+                        else:
+                            print('     '+str(j[i]))
                 categorie = input('Escreva uma de cada vez e quando estiver pronto digite 0 (zero) -> ')
                 if any(categorie in list for list in c.categories):
                     self.categories.append(categorie)
@@ -101,12 +107,15 @@ class Product:
                     print('    Dimensões: ' + str(self.list_products[i][j][0])+'cm x '+str(self.list_products[i][j][1]) +'cm x '+str(self.list_products[i][j][2])+'cm' ) 
 
         print('')
-        print('    Categorias: ')
-        for i in range(len(self.categories)):
-            print('    '+self.categories[i])
-        
-        print('')
-        pass 
+        if self.categories != []:
+            print('    Categorias: ')
+            for i in range(len(self.categories)):
+                print('    '+self.categories[i])
+            
+            print('')
+            pass
+        else:
+            pass
 
     def delete(self):
         print('')
@@ -114,6 +123,7 @@ class Product:
         if any(element in self.list_product for self.list_product in self.list_products):
             index = [i for i, j in enumerate(self.list_products) if element in j][0] 
             self.list_products.pop(index)
+            self.categories.pop(index)
 
             print('')
             print('ITEM EXCLUIDO!')
@@ -125,6 +135,7 @@ class Product:
             print('')
 
     def edit_products(self):
+        c = Categories()
         print('')
         element = input('Digite o nome do produto que deseja editar: ')
         if any(element in self.list_product for self.list_product in self.list_products):
@@ -142,6 +153,29 @@ class Product:
                 else:
                     self.list_products[index][index1] = name
                     pass
+                    
+                    categorie = []
+                    while categorie != '0':
+                        print('')
+                        print('Selecione as novas categorias à que esse produto pertence:')
+                        print('')
+                        for j in c.categories:
+                            for i in range(len(j)):
+                                if i == 0:
+                                    print('')
+                                    print(j[i])
+                                else:
+                                    print('     '+str(j[i]))
+                        categorie = input('Escreva uma de cada vez e quando estiver pronto digite 0 (zero) -> ')
+                        if any(categorie in list for list in c.categories):
+                            self.categories.append(categorie)
+                        elif categorie == '0':
+                            pass
+                        else:
+                            print('')
+                            print('CATEGORIA NÃO CADASTRADA')
+                            print('')
+                            pass
 
                     description = input('Digite a nova descrição do produto: ')
                     if description == '':
@@ -197,15 +231,20 @@ class Categories:
     
 
     def categories_menu(self) -> int:
-        print('')
-        print("CATEGORIAS CADASTRADAS:")
-        print('')
-        for i in range(len(self.categories)):
-            print(self.categories[i][0])
-            print('')
 
         print('')
-        print('1 - Adicionar nova categoria')
+        print("CATEGORIAS CADASTRADAS:")
+        print('')    
+        for j in self.categories:
+            for i in range(len(j)):
+                if i == 0:
+                    print('')
+                    print(j[i])
+                else:
+                    print('     '+str(j[i]))
+                    
+        print('')
+        print('1 - Consultar e adicionar nova categoria')
         print('2 - Editar categoria')
         print('0 - Sair')
         print('')
@@ -213,7 +252,7 @@ class Categories:
         return self.option
 
     def add(self):
-        name = input("Digite o nome da noVa categoria:  ")
+        name = input("Digite o nome da nova categoria:  ")
 
         if any(name in list for list in self.categories):
             print('')
@@ -225,7 +264,26 @@ class Categories:
             print('')
             print('CATEGORIA ADICIONADA!')
             print('')
+            print('Gostaria de adicionar uma subcategoria?')
+            print('1 - SIM')
+            print('2 - NÃO')
+            sub = input('Use os números ->')
+
+            if sub == '1':
+                subcategorie = input('Digite o nome da nova subcategoria: ')
+                if any(subcategorie in list for list in self.categories):
+                    print('')
+                    print('A CATEGORIA JÁ EXISTE!')
+                    print('')
+                    pass 
+                else:
+                    self.categories[len(self.categories)-1].append(subcategorie)
+                    pass
+            else:
+                os.system('clear') 
+                pass     
             pass
+            
 
     def edit(self):
         element = input("Digite o nome da categoria que deseja editar:  ")
