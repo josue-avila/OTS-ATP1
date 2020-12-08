@@ -7,7 +7,11 @@ class Product:
     name: str
     description: str
     price: float
-
+    weigth: float
+    length: float
+    heigth: float
+    width: float
+    
     list_products: list = []
     list_product: list = ['','','']
     categories: list = []
@@ -23,13 +27,13 @@ class Product:
         print('4 - Deletar produto')
         print('0 - Sair')
         print('')
-        self.option = input('Digite a opção escolhida (use os números): -> ')
+        self.option = int(input('Digite a opção escolhida (use os números): -> '))
         return self.option
 
     def add(self):
         name= input("Digite o nome do novo produto: ")
         c = Categories()
-        if any(name in self.list_product for self.list_product in self.list_products):
+        if any(name in list for list in self.list_products):
             print('')
             print('O PRODUTO JÁ EXISTE!')
             print('')
@@ -97,7 +101,7 @@ class Product:
         print('LISTA DE PRODUTOS: ')
         for i in range(len(self.list_products)):
             print('')
-            for j in range(5):
+            for j in range(6):
                 if j == 0:
                     print(str(i + 1) +' - Nome: ', self.list_products[i][j])
                 elif j == 1:
@@ -106,24 +110,19 @@ class Product:
                     print('    Preço: R$ ' + str(self.list_products[i][j]))
                 elif j == 3: 
                     print('    Peso: ' + str(self.list_products[i][j])+"Kg")
-                else:
+                elif j == 4:
                     print('    Dimensões: ' + str(self.list_products[i][j][0])+'cm x '+str(self.list_products[i][j][1]) +'cm x '+str(self.list_products[i][j][2])+'cm' ) 
-
-        print('')
-        if self.categories != []:
-            print('    Categorias: ')
-            for i in range(len(self.categories)):
-                print('    '+self.categories[i])
-            
+                else:
+                    print('')
+                    print('    Categorias: ')
+                    print('    '+str(self.list_products[i][j]))
             print('')
-            pass
-        else:
-            pass
+            
 
     def delete(self):
         print('')
         element = input('Digite o nome do produto que deseja excluir: ')
-        if any(element in self.list_product for self.list_product in self.list_products):
+        if any(element in list for list in self.list_products):
             index = [i for i, j in enumerate(self.list_products) if element in j][0] 
             self.list_products.pop(index)
             self.categories.pop(index)
@@ -141,14 +140,14 @@ class Product:
         c = Categories()
         print('')
         element = input('Digite o nome do produto que deseja editar: ')
-        if any(element in self.list_product for self.list_product in self.list_products):
+        if any(element in list for list in self.list_products):
             index = [i for i, j in enumerate(self.list_products) if element in j][0]
             index1 = self.list_products[index].index(element)
             name = input('Digite o novo nome do produto: ')
             if name == '':
                 pass
             else:
-                if any(name in self.list_product for self.list_product in self.list_products):
+                if any(name in list for list in self.list_products):
                     print('')
                     print('PRODUTO JÁ EXISTE!')
                     print('')

@@ -1,5 +1,5 @@
 import os 
-from product import Product
+from products import Product
 from categories import Categories
 
 def menu():
@@ -10,7 +10,7 @@ def menu():
     print('2 - CATEGORIAS')
     print('0 - Sair')
     print('')
-    option = input('Digite a opção escolhida (use os números): -> ')
+    option = int(input('Digite a opção escolhida (use os números): -> '))
     return option
 
 os.system('clear')
@@ -19,26 +19,26 @@ categories = Categories()
 
 opcao = menu()
 
-while opcao != '0':
-    if opcao == '1':
+while opcao != 0:
+    if opcao == 1:
         os.system('clear')
         opcao_products = product.product_menu()
-        while opcao_products != '0':
-            if opcao_products == '1':
+        while opcao_products != 0:
+            if opcao_products == 1:
                 os.system('clear')
                 product.add()
-            elif opcao_products == '2':
+            elif opcao_products == 2:
                 os.system('clear')
                 product.get_products()
-            elif opcao_products == '3':
+            elif opcao_products == 3:
                 os.system('clear')
                 product.edit_products()
-            elif opcao_products == '4':
+            elif opcao_products == 4:
                 os.system('clear')
                 product.delete()
     
             opcao_products = product.product_menu()
-    elif opcao == '2': 
+    elif opcao == 2: 
         os.system('clear')
         opcao_categories = categories.categories_menu()   
         if opcao_categories == '1':
