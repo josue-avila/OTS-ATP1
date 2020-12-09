@@ -39,6 +39,7 @@ class Product:
             print('')
             pass
         else:
+            self.categories = []
             categorie =[]
             while categorie != '0':
                 print('')
@@ -115,7 +116,7 @@ class Product:
                 else:
                     print('')
                     print('    Categorias: ')
-                    print('    '+str(self.list_products[i][j]))
+                    print('    '+' '.join(self.list_products[i][j]))
             print('')
             
 
@@ -149,7 +150,7 @@ class Product:
             else:
                 if any(name in list for list in self.list_products):
                     print('')
-                    print('PRODUTO JÁ EXISTE!')
+                    print('PRODUTO JÁ EXISTE!') 
                     print('')
                     pass
                 else:
