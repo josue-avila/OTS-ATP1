@@ -17,7 +17,7 @@ class Product:
     categories: list = []
 
     
-    def product_menu(self) -> int:
+    def menu(self) -> int:
         print('')
         print("MENU DE PRODUTOS:")
         print('')

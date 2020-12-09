@@ -8,7 +8,7 @@ class Categories:
     ['petshop','coleiras', 'ração']]
     
 
-    def categories_menu(self) -> int:
+    def menu(self) -> int:
 
         print('')
         print("CATEGORIAS CADASTRADAS:")
@@ -23,7 +23,7 @@ class Categories:
                     
         print('')
         print('1 - Consultar e adicionar nova categoria')
-        print('2 - Editar categoria')
+        print('2 - Editar categoria/subcategoria')
         print('0 - Sair')
         print('')
         self.option = input('Digite a opção escolhida (use os números): -> ')

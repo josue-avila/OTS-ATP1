@@ -22,7 +22,7 @@ opcao = menu()
 while opcao != 0:
     if opcao == 1:
         os.system('clear')
-        opcao_products = product.product_menu()
+        opcao_products = product.menu()
         while opcao_products != 0:
             if opcao_products == 1:
                 os.system('clear')
@@ -36,11 +36,10 @@ while opcao != 0:
             elif opcao_products == 4:
                 os.system('clear')
                 product.delete()
-    
-            opcao_products = product.product_menu()
+            opcao_products = product.menu()
     elif opcao == 2: 
         os.system('clear')
-        opcao_categories = categories.categories_menu()   
+        opcao_categories = categories.menu()   
         if opcao_categories == '1':
             os.system('clear')
             categories.add()
