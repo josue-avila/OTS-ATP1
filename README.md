@@ -10,6 +10,8 @@ A atividade conssistiu na criação de uma aplicação CRUD em python e seguinte
 - Ser utilizado GITHUB.
 - Entregue ate 15:00 07/12/2020
 
+## Instruções
+
 Para rodar a aplicação é necessário ter Python 3.9 instalado em seu ambiente de desenvolvimento.
 
 Inicialmente você pode baixar esse repositório ou cloná-lo com o comando:
